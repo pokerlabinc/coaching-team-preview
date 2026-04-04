@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching Team — produced by Aripei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   Coaching Team LP v6 — Glitch Data VJ
+   Each section has its own VJ background. No separate VJ breaks.
+   =================================================================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#000;--dark:#060606;--dark-s:#0a0a0a;--dark-g:#141414;
+  --red:#e31b23;--red-b:#ff2d2d;--red-d:#8b0000;
+  --red-glow:rgba(227,27,35,0.4);--red-gs:rgba(227,27,35,0.12);
+  --white:#fff;--lg:#c0c0c0;--dim:#666;
+  --fd:'Bebas Neue','Impact',sans-serif;
+  --fs:'Oswald',sans-serif;
+  --fb:'Noto Sans JP',sans-serif;
+  --fm:'Courier New',monospace;
+  --fj:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+}
+html{scroll-behavior:smooth;background:var(--black)}
+body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* Scanline */
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px)}
+
+/* Data rain — full page fixed */
+#dataRain{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+
+/* Particles */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:2}
+
+/* ===================================================================
+   HERO
+   =================================================================== */
+.hero{
+  position:relative;width:100%;height:70vh;min-height:450px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:visible;z-index:3;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.95) 100%),
+    url('https://aripei-poker-lab.com/wp-content/uploads/2026/02/top2.jpg') 30% center / cover no-repeat;
+  filter:grayscale(100%) contrast(1.2);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 40% at 50% 45%,rgba(227,27,35,0.08) 0%,transparent 70%);
+}
+
+/* Hero grid — proper squares via JS sizing */
+.hero-grid-wrap{position:absolute;top:0;left:0;right:0;z-index:1;overflow:visible}
+.hero-grid{
+  display:grid;gap:3px;
+}
+.tile{
+  border:1px solid transparent;
+  transition:background 2s ease, border-color 2s ease, box-shadow 2s ease;
+}
+
+/* Hero content */
+.hero-content{position:relative;z-index:10;text-align:center;padding:0 20px;max-width:900px}
+
+.hero-title{
+  font-family:var(--fd);
+  font-size:clamp(2rem,5vw,4rem);
+  line-height:0.9;letter-spacing:0.1em;
+  color:var(--white);
+  text-shadow:0 0 15px rgba(255,255,255,0.1),0 0 40px var(--red-gs);
+  opacity:0;animation:fadeUp .8s ease-out .3s forwards;
+}
+.hero-title-main{
+  font-family:var(--fd);
+  font-size:clamp(3.5rem,9vw,7.5rem);
+  line-height:0.88;letter-spacing:0.04em;
+  color:#c41018;
+  text-shadow:0 0 25px rgba(180,15,20,0.5),0 0 60px rgba(140,10,15,0.2);
+  margin-top:0;
+  opacity:0;animation:titleIn 1s ease-out .5s forwards;
+}
+.hero-credit{
+  font-family:var(--fs);font-size:12px;font-weight:400;
+  letter-spacing:0.25em;text-transform:lowercase;color:var(--dim);
+  margin-top:20px;opacity:0;animation:fadeUp .8s ease-out .8s forwards;
+}
+.hero-credit em{font-style:normal;color:var(--lg);letter-spacing:0.15em}
+.hero-sub{
+  font-size:14px;color:var(--lg);line-height:1.9;margin-top:16px;
+  opacity:0;animation:fadeUp .8s ease-out 1s forwards;
+}
+.hero-cta{margin-top:28px;opacity:0;animation:fadeUp .8s ease-out 1.2s forwards}
+
+.btn{
+  display:inline-block;font-family:var(--fs);font-size:14px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;color:var(--white);
+  background:var(--red);padding:14px 44px;border:none;position:relative;overflow:hidden;
+  transition:all .3s;box-shadow:0 0 16px var(--red-glow);
+}
+.btn:hover{background:var(--red-b);transform:translateY(-2px);box-shadow:0 0 24px var(--red-glow),0 0 50px rgba(227,27,35,0.12)}
+
+@keyframes titleIn{0%{opacity:0;transform:translateY(25px) scale(.96);filter:blur(6px)}60%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  opacity:0;animation:fadeUp .8s ease-out 1.8s forwards;
+}
+.scroll-hint span{font-family:var(--fs);font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--dim)}
+.scroll-line{width:1px;height:28px;background:linear-gradient(to bottom,var(--red),transparent);animation:sPulse 2s ease-in-out infinite}
+@keyframes sPulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ===================================================================
+   SECTION — each has canvas VJ background
+   =================================================================== */
+.sec{position:relative;z-index:3;padding:100px 20px;overflow:visible}
+.sec-inner{max-width:1000px;margin:0 auto;position:relative;z-index:2}
+.sec canvas.sec-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+.sec-label{
+  font-family:var(--fd);font-size:clamp(2.5rem,6vw,4.5rem);
+  letter-spacing:.05em;color:var(--white);
+  text-shadow:0 0 12px var(--red-gs);margin-bottom:4px;
+}
+.sec-label-sub{
+  font-family:var(--fs);font-size:11px;font-weight:600;
+  letter-spacing:.4em;text-transform:uppercase;color:var(--red);margin-bottom:44px;
+}
+
+/* CONCEPT */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.concept-text h3{font-family:var(--fs);font-size:22px;font-weight:700;color:var(--white);margin-bottom:18px;line-height:1.5}
+.concept-text h3 em{font-style:normal;color:var(--red-b);text-shadow:0 0 12px var(--red-gs)}
+.concept-text p{font-size:14px;line-height:2;color:var(--lg)}
+/* Concept image */
+.concept-img{
+  position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
+}
+.concept-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(80%) contrast(1.05) brightness(0.7)}
+.concept-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(227,27,35,0.1) 0%,transparent 40%,transparent 60%,rgba(0,140,220,0.08) 100%)}
+
+/* COACHES — multiple cards in a row */
+.coaches-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.coach-card{
+  background:var(--dark-s);border:1px solid transparent;
+  padding:0;position:relative;overflow:hidden;transition:all .4s;
+}
+.coach-card:hover{transform:translateY(-2px)}
+.coach-photo{
+  width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;
+}
+.coach-photo img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(100%) contrast(1.1) brightness(0.6);
+  transition:filter .4s;
+}
+.coach-card:hover .coach-photo img{filter:grayscale(70%) contrast(1.1) brightness(0.7)}
+.coach-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.8) 100%);
+}
+.coach-info{padding:20px}
+.coach-name{font-family:var(--fd);font-size:26px;letter-spacing:.04em;color:var(--white);line-height:1}
+.coach-name-ja{font-family:var(--fj);font-size:22px;font-weight:900;letter-spacing:.06em;color:var(--white);line-height:1}
+.coach-role{font-family:var(--fs);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-top:4px}
+.coach-desc{font-size:12px;line-height:1.7;color:var(--dim);margin-top:8px}
+
+/* PROGRAM */
+.program-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.program-card{
+  background:var(--dark-s);border:1px solid rgba(227,27,35,0.05);
+  padding:32px 22px;position:relative;overflow:hidden;transition:all .4s;
+}
+.program-card:hover{border-color:rgba(227,27,35,0.18);transform:translateY(-3px)}
+.program-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0;transition:opacity .4s}
+.program-card:hover::before{opacity:1}
+.program-icon{font-size:24px;margin-bottom:12px;display:block}
+.program-card h3{font-family:var(--fs);font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px}
+.program-card p{font-size:13px;line-height:1.8;color:var(--lg)}
+.tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:3px 10px;margin-top:16px}
+
+/* TRACK RECORD */
+.achieve-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.achieve-cell{background:var(--dark-s);border:1px solid rgba(227,27,35,0.04);padding:32px 14px;text-align:center;transition:all .4s}
+.achieve-cell:hover{background:rgba(227,27,35,0.02);border-color:rgba(227,27,35,0.1)}
+.stat-num{font-family:var(--fd);font-size:38px;color:var(--red-b);line-height:1;text-shadow:0 0 10px var(--red-glow)}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+/* CTA */
+.cta{text-align:center}
+.cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:350px;height:350px;background:radial-gradient(circle,rgba(227,27,35,0.04) 0%,transparent 60%);pointer-events:none}
+.cta-title{font-family:var(--fd);font-size:clamp(2.5rem,6vw,4rem);letter-spacing:.05em;color:var(--white);text-shadow:0 0 12px var(--red-gs);margin-bottom:12px;position:relative;z-index:1}
+.cta-text{font-size:14px;color:var(--lg);line-height:1.9;margin-bottom:28px;position:relative;z-index:1}
+
+/* FOOTER */
+.footer{background:var(--black);padding:28px 20px;text-align:center;border-top:1px solid rgba(255,255,255,0.03);position:relative;z-index:3}
+.footer-brand{font-family:var(--fs);font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:4px}
+.footer p{font-size:10px;color:rgba(255,255,255,0.12)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.rv.v{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .concept-grid{grid-template-columns:1fr;gap:28px}
+  .concept-img{max-width:100%}
+  .coaches-row{grid-template-columns:repeat(2,1fr);gap:12px}
+  .program-cards{grid-template-columns:1fr;gap:12px}
+  .achieve-nums{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div id="dataRain"></div>
+<canvas id="particles"></canvas>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-wrap"><div class="hero-grid" id="heroGrid"></div></div>
+  <div class="hero-content">
+    <div class="hero-title">POKER</div>
+    <h1 class="hero-title-main">COACHING TEAM</h1>
+    <div class="hero-credit">produced by <em>Aripei</em></div>
+    <p class="hero-sub">実戦で培った戦略を、あなたのプレーに。<br>2年で$150,000+を獲得したありぺーが率いる少数精鋭のチーム。</p>
+    <div class="hero-cta"><a href="#program" class="btn">View Program</a></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ============ CONCEPT ============ -->
+<section class="sec" id="sec-concept">
+  <canvas class="sec-bg" id="bgConcept"></canvas>
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-label">CONCEPT</div>
+      <div class="sec-label-sub">— GTO-Based Strategy</div>
+    </div>
+    <div class="concept-grid rv">
+      <div class="concept-text">
+        <h3>GTO理論を基盤にした<br><em>最適化された戦略</em>を身につける。</h3>
+        <p>Game Theory Optimalは現代ポーカーの共通言語。最適なベットサイズ、レンジ構築、エクスプロイト戦略——ソルバーの出力を「理解して使いこなす力」を、実戦ベースでコーチングします。</p>
+        <p style="margin-top:14px">理論と実戦のギャップを埋める。それがこのチームの存在意義。</p>
+      </div>
+      <div class="concept-img">
+        <img src="https://media.cardplayer.com/assets/000/028/945/WSOP_FT.jpg" alt="WSOP Final Table">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COACHES ============ -->
+<section class="sec" id="sec-coaches">
+  <canvas class="sec-bg" id="bgCoaches"></canvas>
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-label">COACHES</div>
+      <div class="sec-label-sub">— The Team</div>
+    </div>
+    <div class="coaches-row rv">
+      <div class="coach-card" style="--card-color:rgba(227,27,35,0.15)">
+        <div class="coach-photo">
+          <img src="https://aripei-poker-lab.com/wp-content/uploads/2026/02/photo3.jpg" alt="ありぺー">
+        </div>
+        <div class="coach-info">
+          <div class="coach-name-ja">ありぺー</div>
+          <div class="coach-role" style="color:#e31b23">Founder / Tournament</div>
+          <div class="coach-desc">APT Jeju Main 7位 $54K / 4タイトル / 6ヵ国</div>
+        </div>
+      </div>
+      <div class="coach-card" style="--card-color:rgba(0,140,220,0.15)">
+        <div class="coach-photo" style="background:var(--dark-g);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:var(--fd);font-size:48px;color:rgba(0,140,220,0.1)">?</span>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">COMING SOON</div>
+          <div class="coach-role" style="color:#008cd6">Cash Game Specialist</div>
+          <div class="coach-desc">キャッシュゲーム特化のコーチを準備中</div>
+        </div>
+      </div>
+      <div class="coach-card" style="--card-color:rgba(180,120,255,0.12);--card-glow:rgba(180,120,255,0.06)">
+        <div class="coach-photo" style="background:var(--dark-g);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:var(--fd);font-size:48px;color:rgba(180,120,255,0.1)">?</span>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">COMING SOON</div>
+          <div class="coach-role" style="color:#b478ff">MTT Strategy</div>
+          <div class="coach-desc">MTT戦略特化のコーチを準備中</div>
+        </div>
+      </div>
+      <div class="coach-card" style="--card-color:rgba(50,200,120,0.12);--card-glow:rgba(50,200,120,0.06)">
+        <div class="coach-photo" style="background:var(--dark-g);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:var(--fd);font-size:48px;color:rgba(50,200,120,0.1)">?</span>
+        </div>
+        <div class="coach-info">
+          <div class="coach-name">COMING SOON</div>
+          <div class="coach-role" style="color:#32c878">GTO Analysis</div>
+          <div class="coach-desc">ソルバー分析特化のコーチを準備中</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAM ============ -->
+<section class="sec" id="sec-program">
+  <canvas class="sec-bg" id="bgProgram"></canvas>
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-label">PROGRAM</div>
+      <div class="sec-label-sub">— Coaching Menu</div>
+    </div>
+    <div class="program-cards">
+      <div class="program-card rv">
+        <span class="program-icon">♠</span><h3>1on1 Session</h3>
+        <p>ハンドヒストリーレビュー、リーク特定、改善プランの提示。初心者から上級者まで対応。</p>
+        <span class="tag">Personalized</span>
+      </div>
+      <div class="program-card rv">
+        <span class="program-icon">♦</span><h3>Group Study</h3>
+        <p>少人数でのディスカッション形式スタディ。複数の視点からレンジ分析を深める。</p>
+        <span class="tag">Interactive</span>
+      </div>
+      <div class="program-card rv">
+        <span class="program-icon">♣</span><h3>Tournament Prep</h3>
+        <p>ICM戦略、FT対策、バブルプレイ。トーナメントに特化した集中コーチング。</p>
+        <span class="tag">Competition</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRACK RECORD ============ -->
+<section class="sec" id="sec-track">
+  <canvas class="sec-bg" id="bgTrack"></canvas>
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-label">TRACK RECORD</div>
+      <div class="sec-label-sub">— Numbers Don't Lie</div>
+    </div>
+    <div class="achieve-nums rv">
+      <div class="achieve-cell"><div class="stat-num">$54,811</div><div class="stat-label">Largest Cash<br>APT Jeju Main</div></div>
+      <div class="achieve-cell"><div class="stat-num">4</div><div class="stat-label">Titles<br>APT / P1 / Megastack</div></div>
+      <div class="achieve-cell"><div class="stat-num">20+</div><div class="stat-label">Final Tables<br>International</div></div>
+      <div class="achieve-cell"><div class="stat-num">2年</div><div class="stat-label">Career<br>Since Jan 2024</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="sec cta" id="sec-cta">
+  <canvas class="sec-bg" id="bgCta"></canvas>
+  <div class="sec-inner rv">
+    <div class="cta-title">READY TO LEVEL UP?</div>
+    <p class="cta-text">次のステージへ進む準備はできましたか？<br>まずは無料相談から、あなたに最適なプログラムを探しましょう。</p>
+    <a href="#" class="btn">Contact Us</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">POKER COACHING TEAM — produced by Aripei</div>
+  <p>&copy; 2026 ありぺーのPoker Lab</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  const M=window.innerWidth<768;
+
+  /* ====== 1. Hero Grid — proper square tiles, slow animation ====== */
+  const hg=document.getElementById('heroGrid');
+  const tileSize=M?40:56; // px, always square
+  const gapSize=3;
+  const heroEl=document.querySelector('.hero');
+  const heroH=heroEl.offsetHeight;
+  const heroW=heroEl.offsetWidth;
+  const cols=Math.ceil(heroW/(tileSize+gapSize));
+  const extraRows=1+Math.floor(Math.random()*2); // randomly 1 or 2 extra rows
+  const rows=Math.floor(heroH/(tileSize+gapSize))+extraRows;
+  hg.style.gridTemplateColumns=`repeat(${cols},${tileSize}px)`;
+  hg.style.gridTemplateRows=`repeat(${rows},${tileSize}px)`;
+  const total=cols*rows;
+  const fr=document.createDocumentFragment();
+  // ~50% of tiles get a faint grid line, bottom rows sparser
+  const hasGrid=[];
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='tile';
+    const r=Math.floor(i/cols);
+    const mainRows=rows-extraRows;
+    let chance=0.2;
+    if(r>=mainRows) chance=0.12/(1+(r-mainRows)); // progressively sparser
+    const show=Math.random()<chance;
+    hasGrid.push(show);
+    if(show) d.style.borderColor='rgba(227,27,35,0.04)';
+    fr.appendChild(d);
+  }
+  hg.appendChild(fr);
+  const tiles=[...hg.querySelectorAll('.tile')];
+
+  // Glow spots: each spot slowly fades in at a location, holds, fades out
+  // Multiple spots run staggered for organic "mura" effect
+  const tileBright=new Float32Array(total); // per-tile brightness
+  const NUM_SPOTS=6; // 2-3 bright at any time (staggered phases)
+  const spots=[];
+
+  function newSpot(){
+    const big=Math.random()>0.5;
+    const wScale=Math.floor(Math.max(0,(window.innerWidth-768)/400)*2);
+    // Avoid center-left area where face is (roughly cols*0.2~0.5, rows*0.1~0.6)
+    let cr,cc;
+    do {
+      cr=Math.floor(Math.random()*rows);
+      cc=Math.floor(Math.random()*cols);
+    } while(cc>cols*0.15 && cc<cols*0.5 && cr>rows*0.05 && cr<rows*0.55 && Math.random()<0.7);
+    return {
+      cr, cc,
+      radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),
+      peak:0.04+Math.random()*0.12,
+      fadeInDur:25+Math.floor(Math.random()*20),
+      holdDur:15+Math.floor(Math.random()*30),
+      fadeOutDur:30+Math.floor(Math.random()*25),
+      tick:0,
+      // Movement: drift direction during lifetime
+      dr:(Math.random()-0.5)*0.06, // row drift per tick
+      dc:(Math.random()-0.5)*0.06, // col drift per tick
+      // Radius growth: expand slightly over time
+      radiusGrow:Math.random()*0.02,
+      _cr:0,_cc:0, // fractional accumulators
+    };
+  }
+
+  // First 2 spots start already bright (instant)
+  for(let i=0;i<2;i++){
+    const s=newSpot();
+    s.tick=s.fadeInDur; // skip fade-in, start at peak
+    spots.push(s);
+  }
+  // Rest stagger normally
+  for(let i=2;i<NUM_SPOTS;i++){
+    const s=newSpot();
+    s.tick=-i*5;
+    spots.push(s);
+  }
+
+  setInterval(()=>{
+    // Reset all brightness
+    tileBright.fill(0);
+
+    spots.forEach((sp,si)=>{
+      sp.tick++;
+      if(sp.tick<0) return;
+
+      // Drift: slowly move center
+      sp._cr+=sp.dr; sp._cc+=sp.dc;
+      if(Math.abs(sp._cr)>=1){sp.cr+=Math.sign(sp._cr);sp._cr=0;}
+      if(Math.abs(sp._cc)>=1){sp.cc+=Math.sign(sp._cc);sp._cc=0;}
+      sp.cr=Math.max(0,Math.min(rows-1,sp.cr));
+      sp.cc=Math.max(0,Math.min(cols-1,sp.cc));
+
+      // Radius grows slightly over time
+      const curRadius=sp.radius+sp.tick*sp.radiusGrow;
+
+      // Intensity based on phase
+      let intensity=0;
+      if(sp.tick<sp.fadeInDur){
+        intensity=sp.peak*(sp.tick/sp.fadeInDur);
+      } else if(sp.tick<sp.fadeInDur+sp.holdDur){
+        intensity=sp.peak;
+      } else if(sp.tick<sp.fadeInDur+sp.holdDur+sp.fadeOutDur){
+        const fo=sp.tick-(sp.fadeInDur+sp.holdDur);
+        intensity=sp.peak*(1-fo/sp.fadeOutDur);
+      } else {
+        spots[si]=newSpot();
+        return;
+      }
+
+      // Apply to nearby tiles
+      const iRadius=Math.ceil(curRadius);
+      for(let r=Math.max(0,sp.cr-iRadius);r<=Math.min(rows-1,sp.cr+iRadius);r++){
+        for(let c=Math.max(0,sp.cc-iRadius);c<=Math.min(cols-1,sp.cc+iRadius);c++){
+          const dist=Math.abs(r-sp.cr)+Math.abs(c-sp.cc);
+          if(dist<=curRadius){
+            const falloff=1-(dist/curRadius);
+            const idx=r*cols+c;
+            // Fade out bottom 3 rows gradually (including main area bottom)
+            const fadeStart=rows-3-extraRows; // start fading 3 rows before overflow
+            let rowDim=1;
+            if(r>fadeStart) rowDim=Math.max(0.05, 1-((r-fadeStart)/(rows-fadeStart)));
+            tileBright[idx]+=intensity*falloff*falloff*rowDim;
+          }
+        }
+      }
+    });
+
+    // Apply to DOM
+    tiles.forEach((tile,i)=>{
+      const b=Math.min(0.3,tileBright[i]);
+      if(b>0.003){
+        tile.style.background=`rgba(227,27,35,${b.toFixed(3)})`;
+        tile.style.borderColor=`rgba(227,27,35,${Math.min(0.25,b*1.2).toFixed(3)})`;
+        tile.style.boxShadow=b>0.06?`0 0 ${Math.floor(b*35)}px rgba(255,45,45,${(b*0.5).toFixed(3)})`:'none';
+      } else {
+        tile.style.background='';tile.style.borderColor=hasGrid[i]?'rgba(227,27,35,0.04)':'transparent';tile.style.boxShadow='';
+      }
+    });
+  }, 120);
+
+  /* ====== 2. (removed concept grid) ====== */
+
+  /* ====== 3. Section BG canvases — glitch/data aesthetic ====== */
+  const fragments=[
+    'EV(x) = Σ P(i) · V(i) for all i ∈ S','f* = (p·b − q) / b where q = 1−p',
+    'ICM∆ ≈ 0.034 | chip_ev → $ev conversion','SPR = effective_stack / pot_size',
+    '3β_frequency → 18.7% vs CO open RFI','MDF = 1 − α where α = bet/(bet+pot)',
+    'VPIP:22.4 | PFR:17.1 | 3Bet:8.2 | WTSD:24.6','cbet_flop:68% | cbet_turn:52% | cbet_river:41%',
+    'BB/100: +4.7 ± 3.2 (95% CI, n=50k hands)','GTO_λ = 0.67 | exploit_threshold > 0.15',
+    'combos(ATs+,KQs,QJs) = 78 | equity_vs_range: 56.2%','kelly_criterion: f* = 0.12 | bankroll_required: 83 BI',
+    'range{UTG} = {AA-TT, AKs-ATs, KQs, AKo}','∆EV ≥ 0.5bb → deviate from GTO mixing strategy',
+    'probe_bet_turn: 44% | delayed_cbet: 38%','RFI_CO:32% | RFI_BTN:48% | RFI_SB:42%',
+    'freq(bluff) = α = bet_size / (bet_size + pot)','bet_sizing: 75% pot OOP, 33% pot IP',
+    'nash_equilibrium[] = argmax(min(EV))','outs × 2 + 2 ≈ equity% (rule of 4 and 2)',
+    'node.ev = −0.23bb | strategy_freq: check 67%, bet 33%','bluff_to_value_ratio = 1:2 on river',
+    'σ = 80bb/100 | variance_adjusted_winrate','winrate_CI = μ ± 1.96·σ/√n',
+    'pot_odds = call_size / (pot + call_size + call_size)','implied_odds = (future_bets · equity) − call_cost',
+    'fold_equity = P(villain_folds) · pot_size','reverse_implied_odds: dominated draws −EV',
+    'ICM_pressure = Σ(∆equity_i · buyin_value_i)','bubble_factor = ICM_$EV / chipEV_ratio',
+    'minimum_defense_freq = 1 − (S/(S+P))','board_texture: monotone | paired | connected | dry',
+  ];
+
+  function initSecBg(canvasId){
+    const c=document.getElementById(canvasId);
+    if(!c)return;
+    const x=c.getContext('2d');
+    const parent=c.parentElement;
+    function resize(){c.width=parent.offsetWidth;c.height=parent.offsetHeight}
+    resize(); window.addEventListener('resize',resize);
+    const w=()=>c.width, h=()=>c.height;
+
+    // Glitch data points — red and blue, like reference 0.52.51
+    const dotCount=M?48:144; // 80% of original
+    const dots=Array.from({length:dotCount},()=>({
+      x:Math.random(),y:Math.random(),
+      sz:1+Math.random()*4,
+      phase:Math.random()*Math.PI*2,
+      speed:0.2+Math.random()*0.8,
+      isBlue:Math.random()>0.65,
+      hasGlow:Math.random()>0.6, // 40% have soft glow aura
+      glowRadius:8+Math.random()*20,
+    }));
+    // Glitch horizontal lines
+    const lines=Array.from({length:M?3:7},()=>({ // 70% of original
+      y:Math.random(),
+      width:0.1+Math.random()*0.5,
+      x:Math.random(),
+      phase:Math.random()*Math.PI*2,
+      isBlue:Math.random()>0.6,
+    }));
+    // Grid tile squares — pre-generated fixed positions
+    const gtSz=M?30:48;
+    const gridTiles=Array.from({length:M?4:8},()=>({ // 60% of original
+      x:Math.random()*0.9,y:Math.random()*0.9,sz:gtSz,phase:Math.random()*Math.PI*2,
+    }));
+    // Data text fragments
+    const txts=Array.from({length:M?10:25},()=>({
+      x:0.02+Math.random()*0.96,y:0.05+Math.random()*0.9,
+      txt:fragments[Math.floor(Math.random()*fragments.length)],
+      sz:7+Math.floor(Math.random()*5),
+      rot:(Math.random()-0.5)*8,
+      phase:Math.random()*Math.PI*2,
+    }));
+
+    function draw(){
+      x.clearRect(0,0,w(),h());
+      const t=Date.now()*0.001;
+
+      // Glitch dots — bright points, some with soft glow aura
+      dots.forEach(d=>{
+        const op=0.06+Math.sin(t*d.speed+d.phase)*0.1;
+        if(op>0.02){
+          const px=d.x*w(),py=d.y*h();
+          const col=d.isBlue?`rgba(0,140,220,${op.toFixed(3)})`:`rgba(227,27,35,${op.toFixed(3)})`;
+          // Core dot
+          x.fillStyle=col;
+          x.fillRect(px,py,d.sz,d.sz);
+        }
+      });
+
+      // Glitch horizontal lines
+      lines.forEach(l=>{
+        const op=0.04+Math.sin(t*0.4+l.phase)*0.05;
+        if(op>0.01){
+          const ly=l.y*h();
+          const lx=l.x*w();
+          const lw=l.width*w();
+          const col=l.isBlue?`rgba(0,140,220,${op.toFixed(3)})`:`rgba(227,27,35,${op.toFixed(3)})`;
+          x.fillStyle=col;
+          x.fillRect(lx,ly,lw,1);
+          // Thicker glow version
+          if(op>0.03){
+            x.fillStyle=l.isBlue?`rgba(0,140,220,${(op*0.3).toFixed(3)})`:`rgba(227,27,35,${(op*0.3).toFixed(3)})`;
+            x.fillRect(lx,ly-1,lw,3);
+          }
+        }
+      });
+
+      // Vertical glitch lines (fewer)
+      if(Math.sin(t*0.2)>0.7){
+        for(let i=0;i<2;i++){
+          const vx=Math.random()*w();
+          const vh=0.1*h()+Math.random()*0.3*h();
+          const vy=Math.random()*h();
+          x.fillStyle='rgba(227,27,35,0.02)';
+          x.fillRect(vx,vy,1,vh);
+        }
+      }
+
+      // Grid tile squares — fixed positions, slow fade
+      gridTiles.forEach(gt=>{
+        const sop=0.015+Math.sin(t*0.15+gt.phase)*0.025;
+        if(sop>0.005){
+          x.fillStyle=`rgba(227,27,35,${sop.toFixed(3)})`;
+          x.fillRect(gt.x*w(),gt.y*h(),gt.sz,gt.sz);
+          if(sop>0.025){
+            x.strokeStyle=`rgba(227,27,35,${(sop*1.2).toFixed(3)})`;
+            x.lineWidth=1;
+            x.strokeRect(gt.x*w(),gt.y*h(),gt.sz,gt.sz);
+          }
+        }
+      });
+
+      // Data text fragments
+      txts.forEach(tx=>{
+        const fop=0.05+Math.sin(t*0.2+tx.phase)*0.04;
+        if(fop>0.01){
+          x.save();
+          x.translate(tx.x*w(),tx.y*h());
+          x.rotate(tx.rot*Math.PI/180);
+          x.font=`${tx.sz}px 'Courier New',monospace`;
+          // Mix of red and blue text
+          x.fillStyle=Math.random()>0.7?`rgba(0,140,220,${fop.toFixed(3)})`:`rgba(227,27,35,${fop.toFixed(3)})`;
+          x.fillText(tx.txt,0,0);
+          x.restore();
+        }
+      });
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  initSecBg('bgConcept');
+  initSecBg('bgCoaches');
+  initSecBg('bgProgram');
+  initSecBg('bgTrack');
+  initSecBg('bgCta');
+
+  /* ====== 4. Full-page Data Rain ====== */
+  const rain=document.getElementById('dataRain');
+  const count=M?30:60;
+  for(let i=0;i<count;i++){
+    const s=document.createElement('span');
+    s.textContent=fragments[Math.floor(Math.random()*fragments.length)];
+    const sz=7+Math.floor(Math.random()*8);
+    const op=(.02+Math.random()*.05).toFixed(3);
+    const px=Math.random()*100, py=Math.random()*300; // spread over 3x viewport height
+    const rot=(Math.random()-.5)*16;
+    const isR=Math.random()>.65;
+    s.style.cssText=`position:absolute;left:${px}%;top:${py}%;font-family:var(--fm);font-size:${sz}px;color:${isR?`rgba(227,27,35,${op})`:`rgba(255,255,255,${op})`};transform:rotate(${rot}deg);white-space:nowrap;pointer-events:none`;
+    rain.appendChild(s);
+  }
+
+  /* ====== 5. Particles ====== */
+  const pc=document.getElementById('particles'),px2=pc.getContext('2d');
+  let parts=[];const PN=M?30:70;
+  function rPC(){pc.width=innerWidth;pc.height=innerHeight}
+  rPC();addEventListener('resize',rPC);
+  class P{
+    constructor(){this.reset()}
+    reset(){this.x=Math.random()*pc.width;this.y=Math.random()*pc.height;this.sz=Math.random()*1.3+.3;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.18;this.op=Math.random()*.25+.03;this.od=(Math.random()-.5)*.005;this.w=Math.random()>.8}
+    update(){this.x+=this.vx;this.y+=this.vy;this.op+=this.od;if(this.op<.01||this.op>.35)this.od*=-1;if(this.x<-10||this.x>pc.width+10||this.y<-10||this.y>pc.height+10)this.reset()}
+    draw(){px2.save();px2.globalAlpha=this.op;px2.fillStyle=this.w?'#fff':'#ff2d2d';px2.shadowColor=this.w?'#fff':'#e31b23';px2.shadowBlur=4;px2.beginPath();px2.arc(this.x,this.y,this.sz,0,Math.PI*2);px2.fill();px2.restore()}
+  }
+  for(let i=0;i<PN;i++)parts.push(new P);
+  (function ap(){px2.clearRect(0,0,pc.width,pc.height);parts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(ap)})();
+
+  /* ====== 6. Scroll Reveal ====== */
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

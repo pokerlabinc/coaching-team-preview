@@ -418,7 +418,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     } while(cc>cols*0.1 && cc<cols*0.5 && cr<rows*0.5);
     return {
       cr, cc,
-      radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),
+      radius:M?(big?3:2):(big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2))),
       peak:0.07+Math.random()*0.18, // same intensity PC and mobile
       fadeInDur:25+Math.floor(Math.random()*20),
       holdDur:15+Math.floor(Math.random()*30),
@@ -428,7 +428,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
       dr:(Math.random()-0.5)*0.06, // row drift per tick
       dc:(Math.random()-0.5)*0.06, // col drift per tick
       // Radius growth: expand slightly over time
-      radiusGrow:Math.random()*0.02,
+      radiusGrow:M?Math.random()*0.005:Math.random()*0.02,
       _cr:0,_cc:0, // fractional accumulators
     };
   }

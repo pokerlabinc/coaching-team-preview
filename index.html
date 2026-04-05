@@ -57,7 +57,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 }
 
 /* Hero grid — proper squares via JS sizing */
-.hero-grid-wrap{position:absolute;top:0;left:0;right:0;z-index:1;overflow:visible}
+.hero-grid-wrap{position:absolute;top:0;left:0;right:0;z-index:1;overflow-x:hidden;overflow-y:visible}
 .hero-grid{
   display:grid;gap:3px;
 }
@@ -203,7 +203,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .hero-bg{background-position:35% center !important}
+  .hero-bg{background-position:center center !important}
   .concept-grid{grid-template-columns:1fr;gap:28px}
   .concept-img{max-width:100%}
   .coaches-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -415,7 +415,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     do {
       cr=Math.floor(Math.random()*rows);
       cc=Math.floor(Math.random()*cols);
-    } while(cc>cols*0.15 && cc<cols*0.5 && cr>rows*0.05 && cr<rows*0.55 && Math.random()<0.7);
+    } while(!M && cc>cols*0.15 && cc<cols*0.5 && cr>rows*0.05 && cr<rows*0.55 && Math.random()<0.7);
     return {
       cr, cc,
       radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),

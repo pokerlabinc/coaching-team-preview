@@ -500,7 +500,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     // Apply to DOM
     tiles.forEach((tile,i)=>{
       const b=Math.min(0.3,tileBright[i]);
-      const v=Math.min(0.35,b*1.1); // 1.1x intensity boost
+      const v=Math.min(0.4,b*1.21); // 1.21x intensity (1.1 x 1.1)
       if(v>0.003){
         tile.style.background=`rgba(227,27,35,${v.toFixed(3)})`;
         tile.style.borderColor=`rgba(227,27,35,${Math.min(0.3,v*1.3).toFixed(3)})`;

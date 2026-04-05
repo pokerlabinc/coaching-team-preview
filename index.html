@@ -88,7 +88,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 }
 .hero-credit{
   font-family:var(--fs);font-size:12px;font-weight:400;
-  letter-spacing:0.25em;text-transform:lowercase;color:var(--dim);
+  letter-spacing:0.25em;text-transform:lowercase;color:var(--lg);
   margin-top:20px;opacity:0;animation:fadeUp .8s ease-out .8s forwards;
 }
 .hero-credit em{font-style:normal;color:var(--lg);letter-spacing:0.15em}
@@ -233,7 +233,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     <div class="hero-title">POKER</div>
     <h1 class="hero-title-main">COACHING TEAM</h1>
     <div class="hero-credit">produced by <em>Aripei</em></div>
-    <p class="hero-sub">実戦で培った戦略を、あなたのプレーに。<br>2年で$150,000+を獲得したありぺーが率いる少数精鋭のチーム。</p>
+    <p class="hero-sub">GTO座学と実戦で培った戦略を、あなたのプレーに。<br>ありぺーが率いる精鋭のコーチングチーム。</p>
     <div class="hero-cta"><a href="#program" class="btn">View Program</a></div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
@@ -250,8 +250,8 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     <div class="concept-grid rv">
       <div class="concept-text">
         <h3>GTO理論を基盤にした<br><em>最適化された戦略</em>を身につける。</h3>
-        <p>Game Theory Optimalは現代ポーカーの共通言語。最適なベットサイズ、レンジ構築、エクスプロイト戦略——ソルバーの出力を「理解して使いこなす力」を、実戦ベースでコーチングします。</p>
-        <p style="margin-top:14px">理論と実戦のギャップを埋める。それがこのチームの存在意義。</p>
+        <p>Game Theory Optimal（GTO）は現代ポーカーの共通言語。最適なレンジ構築、ベットサイズ、エクスプロイト戦略——「理解して使いこなす力」を、座学、そして実戦ベースでコーチングします。</p>
+        <p style="margin-top:14px">座学の基本とあなたにあった戦略を構築する。それがこのチームの存在意義。</p>
       </div>
       <div class="concept-img">
         <img src="https://media.cardplayer.com/assets/000/028/945/WSOP_FT.jpg" alt="WSOP Final Table">
@@ -427,7 +427,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     return {
       cr, cc,
       radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),
-      peak:0.04+Math.random()*0.12,
+      peak:M?0.06+Math.random()*0.16:0.04+Math.random()*0.12,
       fadeInDur:25+Math.floor(Math.random()*20),
       holdDur:15+Math.floor(Math.random()*30),
       fadeOutDur:30+Math.floor(Math.random()*25),

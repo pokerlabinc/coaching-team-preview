@@ -203,7 +203,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .hero-bg{background-position:25% 30% !important;background-size:cover !important}
+  .hero-bg{background-position:30% 30% !important}
   .concept-grid{grid-template-columns:1fr;gap:28px}
   .concept-img{max-width:100%}
   .coaches-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -409,7 +409,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 
   function newSpot(){
     const big=Math.random()>0.5;
-    const wScale=Math.floor(Math.max(0,(window.innerWidth-768)/400)*2);
+    const wScale=Math.floor(Math.max(0,(window.innerWidth-768)/500)*1.5); // gentler scaling
     // Avoid center-left area where face is (roughly cols*0.2~0.5, rows*0.1~0.6)
     let cr,cc;
     do {
@@ -419,7 +419,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     return {
       cr, cc,
       radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),
-      peak:M?0.07+Math.random()*0.18:0.045+Math.random()*0.135,
+      peak:0.07+Math.random()*0.18, // same intensity PC and mobile
       fadeInDur:25+Math.floor(Math.random()*20),
       holdDur:15+Math.floor(Math.random()*30),
       fadeOutDur:30+Math.floor(Math.random()*25),

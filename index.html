@@ -667,8 +667,8 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
   for(let i=0;i<count;i++){
     const s=document.createElement('span');
     s.textContent=fragments[Math.floor(Math.random()*fragments.length)];
-    const sz=7+Math.floor(Math.random()*8);
-    const op=(.02+Math.random()*.05).toFixed(3);
+    const sz=M?9+Math.floor(Math.random()*8):7+Math.floor(Math.random()*8);
+    const op=M?(.04+Math.random()*.06).toFixed(3):(.02+Math.random()*.05).toFixed(3);
     const px=Math.random()*100, py=Math.random()*300; // spread over 3x viewport height
     const rot=(Math.random()-.5)*16;
     const isR=Math.random()>.65;

@@ -109,19 +109,11 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 @keyframes titleIn{0%{opacity:0;transform:translateY(25px) scale(.96);filter:blur(6px)}60%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
 @keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
 
-.scroll-hint{
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  opacity:0;animation:fadeUp .8s ease-out 1.8s forwards;
-}
-.scroll-hint span{font-family:var(--fs);font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--dim)}
-.scroll-line{width:1px;height:28px;background:linear-gradient(to bottom,var(--red),transparent);animation:sPulse 2s ease-in-out infinite}
-@keyframes sPulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
 
 /* ===================================================================
    SECTION — each has canvas VJ background
    =================================================================== */
-.sec{position:relative;z-index:3;padding:100px 20px;overflow:visible}
+.sec{position:relative;z-index:3;padding:80px 20px;overflow:visible}
 .sec-inner{max-width:1000px;margin:0 auto;position:relative;z-index:2}
 .sec canvas.sec-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
@@ -236,7 +228,6 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     <p class="hero-sub">GTO座学と実戦で培った戦略を、あなたのプレーに。<br>ありぺーが率いる精鋭のコーチングチーム。</p>
     <div class="hero-cta"><a href="#program" class="btn">View Program</a></div>
   </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
 <!-- ============ CONCEPT ============ -->

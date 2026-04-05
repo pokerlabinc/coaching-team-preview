@@ -500,10 +500,11 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     // Apply to DOM
     tiles.forEach((tile,i)=>{
       const b=Math.min(0.3,tileBright[i]);
-      if(b>0.003){
-        tile.style.background=`rgba(227,27,35,${b.toFixed(3)})`;
-        tile.style.borderColor=`rgba(227,27,35,${Math.min(0.25,b*1.2).toFixed(3)})`;
-        tile.style.boxShadow=b>0.06?`0 0 ${Math.floor(b*35)}px rgba(255,45,45,${(b*0.5).toFixed(3)})`:'none';
+      const v=Math.min(0.35,b*1.1); // 1.1x intensity boost
+      if(v>0.003){
+        tile.style.background=`rgba(227,27,35,${v.toFixed(3)})`;
+        tile.style.borderColor=`rgba(227,27,35,${Math.min(0.3,v*1.3).toFixed(3)})`;
+        tile.style.boxShadow=v>0.06?`0 0 ${Math.floor(v*40)}px rgba(255,45,45,${(v*0.6).toFixed(3)})`:'none';
       } else {
         tile.style.background='';tile.style.borderColor=hasGrid[i]?'rgba(227,27,35,0.04)':'transparent';tile.style.boxShadow='';
       }

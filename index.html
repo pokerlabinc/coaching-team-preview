@@ -203,7 +203,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .hero-bg{background-position:20% center !important}
+  .hero-bg{background-position:35% center !important}
   .concept-grid{grid-template-columns:1fr;gap:28px}
   .concept-img{max-width:100%}
   .coaches-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -404,7 +404,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
   // Glow spots: each spot slowly fades in at a location, holds, fades out
   // Multiple spots run staggered for organic "mura" effect
   const tileBright=new Float32Array(total); // per-tile brightness
-  const NUM_SPOTS=6; // 2-3 bright at any time (staggered phases)
+  const NUM_SPOTS=M?8:6; // mobile: more spots to compensate for smaller screen
   const spots=[];
 
   function newSpot(){
@@ -541,7 +541,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     const w=()=>c.width, h=()=>c.height;
 
     // Glitch data points — red and blue, like reference 0.52.51
-    const dotCount=M?48:144; // 80% of original
+    const dotCount=M?80:144; // mobile boosted
     const dots=Array.from({length:dotCount},()=>({
       x:Math.random(),y:Math.random(),
       sz:1+Math.random()*4,

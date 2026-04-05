@@ -433,14 +433,15 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     };
   }
 
-  // First 2 spots start already bright (instant)
-  for(let i=0;i<2;i++){
+  // Start with spots already bright (mobile: 4, desktop: 2)
+  const initBright=M?4:2;
+  for(let i=0;i<initBright;i++){
     const s=newSpot();
     s.tick=s.fadeInDur; // skip fade-in, start at peak
     spots.push(s);
   }
   // Rest stagger normally
-  for(let i=2;i<NUM_SPOTS;i++){
+  for(let i=initBright;i<NUM_SPOTS;i++){
     const s=newSpot();
     s.tick=-i*5;
     spots.push(s);

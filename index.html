@@ -48,7 +48,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
   position:absolute;inset:0;z-index:0;overflow:hidden;
   background:
     linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.95) 100%),
-    url('https://aripei-poker-lab.com/wp-content/uploads/2026/02/top2.jpg') 30% center / cover no-repeat;
+    url('https://aripei-poker-lab.com/wp-content/uploads/2026/02/top2.jpg') 25% 30% / cover no-repeat;
   filter:grayscale(100%) contrast(1.2);
 }
 .hero-bg::after{
@@ -203,7 +203,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .hero-bg{background-position:40% center !important;background-size:cover !important}
+  .hero-bg{background-position:25% 30% !important;background-size:cover !important}
   .concept-grid{grid-template-columns:1fr;gap:28px}
   .concept-img{max-width:100%}
   .coaches-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -415,7 +415,7 @@ body{font-family:var(--fb);color:var(--white);background:var(--black);overflow-x
     do {
       cr=Math.floor(Math.random()*rows);
       cc=Math.floor(Math.random()*cols);
-    } while(!M && cc>cols*0.15 && cc<cols*0.5 && cr>rows*0.05 && cr<rows*0.55 && Math.random()<0.7);
+    } while(cc>cols*0.1 && cc<cols*0.5 && cr<rows*0.5);
     return {
       cr, cc,
       radius:big?(3+Math.floor(Math.random()*4)+wScale):(2+Math.floor(Math.random()*2)+Math.floor(wScale/2)),
